@@ -1,0 +1,4 @@
+inherits = "kanagawa"
+
+"ui.background" = { fg = "transparent", bg = "transparent" }
+"ui.gutter" = { fg = "transparent", bg = "transparent" }
