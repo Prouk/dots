@@ -1,0 +1,151 @@
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+    }
+    touchpad {
+        off
+    }
+    mouse{
+        accel-profile "flat"
+    }
+    trackpoint {
+        off
+    }
+    trackball {
+        off
+    }
+    tablet {
+        off
+    }
+    touch {
+        off
+    }
+    
+    mod-key "Super"
+    mod-key-nested "Alt"
+
+    focus-follows-mouse
+    warp-mouse-to-focus
+}
+
+output "HDMI-A-1" {
+    mode "3840x2160@119.880"
+    variable-refresh-rate
+    focus-at-startup
+    // hot-corners {
+    //     bottom-left
+    //     bottom-right
+    // }
+}
+
+output "DP-2" {
+    mode "1920x1080@119.982"
+    transform "90"
+    position x=-1080 y=0
+    variable-refresh-rate
+    // hot-corners {
+    //     bottom-left
+    //     bottom-right
+    // }
+}
+
+binds {
+    Mod+Left { focus-column-or-monitor-left; }
+    Mod+Alt+Left { move-column-left-or-to-monitor-left; }
+    Mod+Right { focus-column-or-monitor-right; }
+    Mod+Alt+Right { move-column-right-or-to-monitor-right; }
+    Mod+Up { focus-workspace-up; }
+    Mod+Alt+Up { move-window-up-or-to-workspace-up; }
+    Mod+Down { focus-workspace-down; }
+    Mod+Alt+Down { move-window-down-or-to-workspace-down; }
+    Mod+Tab { toggle-overview; }
+    F11 { expand-column-to-available-width; }
+    Mod+F11 { maximize-column; }
+    Mod+Q { spawn "alacritty"; }
+    Mod+Grave { spawn "fuzzel"; }
+    Mod+Escape { close-window; }
+    Mod+F { toggle-window-floating; }
+    Mod+Shift+S { screenshot show-pointer=false; }
+    Print { screenshot show-pointer=false; }
+}
+
+layout {
+    gaps 5
+    default-column-display "normal"
+    default-column-width {
+        proportion 0.5
+    }
+    preset-window-heights {
+        proportion 0.5
+    }
+    border {
+        off
+    }
+    focus-ring {
+        off
+    }
+    tab-indicator {
+        off
+    }
+    background-color "transparent"
+}
+
+prefer-no-csd
+spawn-sh-at-startup "swww-daemon && swww img $HOME/.config/wallpapers/wallpaper.jpg --resize fit"
+
+environment {
+    LIBVA_DRIVER_NAME "nvidia"
+    __GLX_VENDOR_LIBRARY_NAME "nvidia"
+    NVD_BACKEND "direct"
+    GBM_BACKEND "nvidia-drm"
+    QT_QPA_PLATFORM "wayland"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    SDL_VIDEODRIVER "wayland"
+    CLUTTER_BACKEND "wayland"
+    XDG_CURRENT_DESKTOP "Niri"
+    XDG_SESSION_TYPE "wayland"
+    XDG_SESSION_DESKTOP "Niri"
+}
+
+cursor {
+    xcursor-theme "Layan-cursors"
+    xcursor-size 36
+}
+
+overview {
+    zoom 0.5
+    backdrop-color "#000000"
+
+    workspace-shadow {
+        off
+    }
+}
+
+window-rule {
+    geometry-corner-radius 5
+    clip-to-geometry true
+}
+
+window-rule {
+    match title="Picture-in-Picture"
+    open-floating true
+    open-focused false
+    default-column-width { fixed 528; }
+    default-window-height { fixed 297; }
+    default-floating-position x=5 y=5 relative-to="top-right"
+    open-on-output "DP-2"
+}
+
+window-rule {
+    match title="E:D Market Connector"
+    open-floating true
+    open-focused false
+    
+} 
+
+layer-rule {
+    match namespace="^swww-daemon$"
+    place-within-backdrop true
+}

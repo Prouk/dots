@@ -1,1 +1,4 @@
-
+[opener]
+edit = [
+  {run = 'hx "$0"', block = true, for = "unix"},
+]
